@@ -1,4 +1,6 @@
+import Joi from "joi";
 import { useState } from "react";
+import { IVacation } from "./Vacations";
 
 function AddForm() {
     const [date, setDate] = useState<string>('');
@@ -6,8 +8,48 @@ function AddForm() {
     const [price, setPrice] = useState<number>(1);
     const [error, setError] = useState<string>('');
 
-    function handleClick() {
+    function clearFields() {
+        setDate('');
+        setLocation('');
+        setPrice(1);
+    }
 
+    function addVacation(value: IVacation) {
+        fetch('http://localhost:3000/vacations/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(value)
+        })
+            .then(response => response.json())
+            .then(json => {
+                // setVacations(json);
+                console.log(json);
+            })
+    }
+
+    function handleClick() {
+        const schema = Joi.object().keys({
+            date: Joi.string().required().min(3),
+            location: Joi.string().required().min(3),
+            price: Joi.number().required().min(1)
+        });
+
+        const { error, value } = schema.validate({
+            date,
+            location,
+            price
+        });
+
+        if (error) {
+            setError(error.message);
+            return;
+        }
+
+        setError('');
+        clearFields();
+        addVacation(value);
     }
 
     return (
