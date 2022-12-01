@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import Title from "../../components/Title";
 import { formatPrice } from "../../utils/utils";
+import AddForm from "./AddForm";
 
 interface IVacation {
     _id: number;
@@ -38,6 +39,8 @@ function Vacations() {
                     No vacations
                 </div>
             }
+
+            <AddForm />
 
             <table className="table table-hover">
                 <thead>
