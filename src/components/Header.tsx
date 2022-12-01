@@ -11,11 +11,16 @@ function Header() {
                         <i className="bi-airplane-engines-fill me-2" />
                         Fun Vacation
                     </NavLink>
+                    <NavLink
+                        to="/vacations"
+                    >
+                        Vacations
+                    </NavLink>
 
                     <ul className="navbar-nav">
                         <li className="nav-item">
                             <NavLink
-                                className="nav-link active"
+                                className="nav-link"
                                 aria-current="page"
                                 to="/order"
                             >
