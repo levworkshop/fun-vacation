@@ -16,7 +16,7 @@ export const data = [
     {
         id: 2,
         date: "1.2.22",
-        location: "aza aity us",
+        location: "new aza aity us",
         price: 100,
     },
     {

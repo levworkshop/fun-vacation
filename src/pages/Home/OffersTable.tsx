@@ -18,6 +18,24 @@ function OffersTable() {
     function handleSort(value: string) {
         const direction = value as SortDirection;
         setSort(direction);
+
+        let result = [...data];
+        if (direction === SortDirection.desc) {
+            result.sort((a, b) =>
+                a.location > b.location ? -1 :
+                    a.location < b.location ? 1 :
+                        0
+            );
+        }
+        else { // default sort = A-Z
+            result.sort((a, b) =>
+                a.location < b.location ? -1 :
+                    a.location > b.location ? 1 :
+                        0
+            );
+        }
+
+        setOffers(result);
     }
 
     function handleSearch(value: string) {
