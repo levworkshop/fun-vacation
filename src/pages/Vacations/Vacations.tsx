@@ -10,6 +10,7 @@ interface IVacation {
 }
 
 function Vacations() {
+    let x = 5;
     const [vacations, setVacations] = useState<Array<IVacation>>([]);
 
     function getVacations() {
