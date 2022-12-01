@@ -1,5 +1,6 @@
 import Joi from "joi";
 import React, { useState } from "react";
+import { toast } from "react-toastify";
 import Title from "../components/Title";
 import { Offer, data } from "../data/offers";
 
@@ -34,7 +35,8 @@ function Order() {
 
         setError('');
 
-        console.log('Success! continue to checkout...');
+        // console.log('Success! continue to checkout...');
+        toast.success('Success! continue to checkout...');
     }
 
     return (

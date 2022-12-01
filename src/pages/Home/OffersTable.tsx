@@ -20,12 +20,27 @@ function OffersTable() {
         setSort(direction);
     }
 
+    function handleSearch(value: string) {
+        setSearch(value);
+
+        const term = value.toLowerCase();
+        let result = [...data];
+
+        if (term.length > 0) {
+            result = [...data].filter(offer =>
+                offer.location.toLowerCase().includes(term)
+            )
+        }
+
+        setOffers(result);
+    }
+
     return (
         <>
             <div className="d-flex px-4 w-50 my-5 bg-light">
                 <input
                     value={search}
-                    onChange={(e) => setSearch(e.target.value)}
+                    onChange={(e) => handleSearch(e.target.value)}
                     type="text"
                     placeholder="Search"
                     className="form-control me-4"
