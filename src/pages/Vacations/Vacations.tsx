@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Title from "../../components/Title";
 import { formatPrice } from "../../utils/utils";
 
@@ -11,6 +11,16 @@ interface IVacation {
 
 function Vacations() {
     const [vacations, setVacations] = useState<Array<IVacation>>([]);
+
+    function getVacations() {
+        fetch('http://localhost:3000/vacations/')
+            .then(response => response.json())
+            .then(json => {
+                setVacations(json);
+            })
+    }
+
+    useEffect(getVacations, []);
 
     return (
         <>
