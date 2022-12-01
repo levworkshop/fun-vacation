@@ -69,8 +69,8 @@ function OffersTable() {
                     value={sort}
                     onChange={(e) => handleSort(e.target.value)}
                 >
-                    <option>Location A-Z</option>
-                    <option>Location Z-A</option>
+                    <option value={SortDirection.asc}>Location A-Z</option>
+                    <option value={SortDirection.desc}>Location Z-A</option>
                 </select>
             </div>
 
