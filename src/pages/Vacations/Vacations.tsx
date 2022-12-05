@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import Title from "../../components/Title";
 import { formatPrice } from "../../utils/utils";
 import AddForm from "./AddForm";
@@ -79,6 +80,13 @@ function Vacations() {
                                 <td>{vacation.location}</td>
                                 <td>{formatPrice(vacation.price)}</td>
                                 <td>
+                                    <Link
+                                        to={`/edit/${vacation._id}`}
+                                        className="btn btn-default"
+                                    >
+                                        <i className="bi-pen"></i>
+                                    </Link>
+
                                     <button
                                         onClick={() => delVacation(vacation)}
                                         className="btn btn-default"
