@@ -23,7 +23,7 @@ module.exports = {
 
             if (error) {
                 console.log(error.details[0].message);
-                res.status(400).send('invalid data');
+                res.status(400).json('{ok: false, error: "invalid data"}');
                 return;
             }
 
@@ -32,7 +32,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err);
-            res.status(400).send('error getting vacations');
+            res.status(400).json('{ok: false, error: "error get the vacation"}');
         }
     },
 

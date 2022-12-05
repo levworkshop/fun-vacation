@@ -1,6 +1,6 @@
 import Joi from "joi";
-import { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useParams } from "react-router-dom";
 
 function Edit() {
     const { id } = useParams();
@@ -8,6 +8,21 @@ function Edit() {
     const [location, setLocation] = useState<string>('');
     const [price, setPrice] = useState<number>(1);
     const [error, setError] = useState<string>('');
+
+    useEffect(() => {
+        fetch(`http://localhost:3000/vacations/${id}`)
+            .then(res => res.json())
+            .then(json => {
+                if (json.ok === false) {
+                    setError('error get the data');
+                    return;
+                }
+
+                setDate(json.date);
+                setLocation(json.location);
+                setPrice(json.price);
+            })
+    }, []);
 
     function handleClick() {
         // const schema = Joi.object().keys({
@@ -80,10 +95,17 @@ function Edit() {
 
                 <button
                     onClick={handleClick}
-                    className="btn btn-info ms-3"
+                    className="btn btn-info me-3"
                 >
                     Update
                 </button>
+
+                <Link
+                    to="/vacations"
+                    className="btn btn-secondary"
+                >
+                    Cancel
+                </Link>
             </div>
 
             {
