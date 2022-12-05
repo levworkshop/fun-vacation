@@ -49,7 +49,7 @@ module.exports = {
                 _id: joi.string().required(),
             });
 
-            const { error, value } = scheme.validate({ _id: req.body._id });
+            const { error, value } = scheme.validate({ _id: req.params.id });
 
             if (error) {
                 console.log(error.details[0].message);
@@ -58,7 +58,7 @@ module.exports = {
             }
 
             await Vacation.deleteOne(value).exec();
-            res.json(req.body);
+            res.json(value);
         }
         catch (err) {
             console.log(err);
