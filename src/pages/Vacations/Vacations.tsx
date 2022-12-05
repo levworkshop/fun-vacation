@@ -24,6 +24,12 @@ function Vacations() {
 
     useEffect(getVacations, []);
 
+    function addVacation(newVacation: IVacation) {
+        const updated = [...vacations];
+        updated.push(newVacation);
+        setVacations(updated);
+    }
+
     return (
         <>
             <Title
@@ -40,7 +46,7 @@ function Vacations() {
                 </div>
             }
 
-            <AddForm />
+            <AddForm addVacation={addVacation} />
 
             <table className="table table-hover">
                 <thead>
