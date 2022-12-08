@@ -35,7 +35,6 @@ function Order() {
 
         setError('');
 
-        // console.log('Success! continue to checkout...');
         toast.success('Success! continue to checkout...');
     }
 

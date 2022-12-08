@@ -12,7 +12,6 @@ export interface IVacation {
 }
 
 function Vacations() {
-    let x = 5;
     const [vacations, setVacations] = useState<Array<IVacation>>([]);
 
     function getVacations() {
@@ -80,19 +79,21 @@ function Vacations() {
                                 <td>{vacation.location}</td>
                                 <td>{formatPrice(vacation.price)}</td>
                                 <td>
-                                    <Link
-                                        to={`/edit/${vacation._id}`}
-                                        className="btn btn-default"
-                                    >
-                                        <i className="bi-pen"></i>
-                                    </Link>
+                                    <div className="d-flex">
+                                        <Link
+                                            to={`/edit/${vacation._id}`}
+                                            className="btn btn-default"
+                                        >
+                                            <i className="bi-pen" />
+                                        </Link>
 
-                                    <button
-                                        onClick={() => delVacation(vacation)}
-                                        className="btn btn-default"
-                                    >
-                                        <i className="bi-trash"></i>
-                                    </button>
+                                        <button
+                                            onClick={() => delVacation(vacation)}
+                                            className="btn btn-default ms-2"
+                                        >
+                                            <i className="bi-trash" />
+                                        </button>
+                                    </div>
                                 </td>
                             </tr>
                         )
