@@ -1,13 +1,58 @@
+import Joi from "joi";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Title from "../components/Title";
 
+interface ISignupData {
+    name: string;
+    email: string;
+    password: string;
+}
+
 function Signup() {
+    const navigate = useNavigate();
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
     // todo: create an error component for this
     // const [error, setError] = useState<string>('');
+
+    function submit() {
+        const schema = Joi.object().keys({
+            name: Joi.string().required().min(2).max(256),
+            email: Joi.string().required().min(6).max(255).email({ tlds: { allow: false } }),
+            password: Joi.string().required().min(6).max(30)
+        });
+
+        const { error, value } = schema.validate({
+            name,
+            email,
+            password
+        });
+
+        if (error) {
+            // setError(error.message);
+            console.log(error.message);
+            return;
+        }
+
+        regiser(value);
+    }
+
+    function regiser(data: ISignupData) {
+        fetch('http://localhost:3000/users/signup', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(json => {
+                navigate('/login');
+            })
+    }
 
     return (
         <div className="p-3 form-max-w m-auto">
@@ -46,6 +91,7 @@ function Signup() {
             </div>
 
             <button
+                onClick={submit}
                 className="btn btn-primary btn-lg"
             >
                 Sign Up
