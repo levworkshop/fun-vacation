@@ -38,6 +38,33 @@ function Header() {
                                     Order Now
                                 </NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink
+                                    className="nav-link"
+                                    aria-current="page"
+                                    to="/order"
+                                >
+                                    Sign Up
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink
+                                    className="nav-link"
+                                    aria-current="page"
+                                    to="/order"
+                                >
+                                    Login
+                                </NavLink>
+                            </li>
+                            <li className="nav-item">
+                                <NavLink
+                                    className="nav-link"
+                                    aria-current="page"
+                                    to="/order"
+                                >
+                                    Logout
+                                </NavLink>
+                            </li>
                         </ul>
                     </div>
                 </div>
