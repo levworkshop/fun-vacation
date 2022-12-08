@@ -7,3 +7,8 @@ export const setToken = (token: string) => {
 export const getToken = (): string => {
     return localStorage.getItem(TOKEN_KEY) || '';
 }
+
+export const verifyToken = (): boolean => {
+    const token = getToken();
+    return token.length > 0;
+}
