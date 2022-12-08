@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
+import { getRequest } from "../services/apiService";
 import { IVacation } from "./Vacations/Vacations";
 
 function Edit() {
@@ -12,8 +13,10 @@ function Edit() {
     const [error, setError] = useState<string>('');
 
     useEffect(() => {
-        fetch(`http://localhost:3000/vacations/${id}`)
-            .then(res => res.json())
+        const res = getRequest(`vacations/${id}`);
+        if (!res) return;
+
+        res.then(res => res.json())
             .then(json => {
                 if (json.ok === false) {
                     setError('error get the data');
