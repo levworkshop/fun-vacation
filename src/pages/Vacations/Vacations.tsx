@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import { getToken } from "../../auth/tokenMgmt";
 import Title from "../../components/Title";
 import { formatPrice } from "../../utils/utils";
 import AddForm from "./AddForm";
@@ -15,7 +16,12 @@ function Vacations() {
     const [vacations, setVacations] = useState<Array<IVacation>>([]);
 
     function getVacations() {
-        fetch('http://localhost:3000/vacations/')
+        fetch('http://localhost:3000/vacations/', {
+            method: 'GET',
+            headers: {
+                'x-auth-token': getToken()
+            }
+        })
             .then(response => response.json())
             .then(json => {
                 setVacations(json);
