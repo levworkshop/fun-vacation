@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { getToken } from "../../auth/tokenMgmt";
 import Title from "../../components/Title";
 import { getRequest } from "../../services/apiService";
-import { formatPrice } from "../../utils/utils";
+import { formatDate, formatPrice } from "../../utils/utils";
 import AddForm from "./AddForm";
 
 export interface IVacation {
@@ -79,7 +78,7 @@ function Vacations() {
                     {
                         vacations.map(vacation =>
                             <tr key={vacation._id}>
-                                <td>{vacation.date}</td>
+                                <td>{formatDate(vacation.date)}</td>
                                 <td>{vacation.location}</td>
                                 <td>{formatPrice(vacation.price)}</td>
                                 <td>

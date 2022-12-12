@@ -2,6 +2,7 @@ import Joi from "joi";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getRequest } from "../services/apiService";
+import { formatDate } from "../utils/utils";
 import { IVacation } from "./Vacations/Vacations";
 
 function Edit() {
@@ -27,7 +28,7 @@ function Edit() {
                 setLocation(json.location);
                 setPrice(json.price);
             })
-    }, []);
+    }, [id]);
 
     function handleClick() {
         const schema = Joi.object().keys({
@@ -79,13 +80,9 @@ function Edit() {
                         className="form-label">
                         Date
                     </label>
-                    <input
-                        type="text"
-                        readOnly={true}
-                        className="form-control-plaintext"
-                        id="date"
-                        value={date}
-                    />
+                    <div>
+                        {formatDate(date)}
+                    </div>
                 </div>
 
                 <div className="mb-3">
