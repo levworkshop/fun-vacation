@@ -54,14 +54,14 @@ module.exports = {
 
         if (error) {
             console.log(error.details[0].message);
-            res.status(400).send('error sign up new user');
+            res.status(400).json({ error: 'error sign up new user' });
             return;
         }
 
         try {
             const user = await User.findOne({ email: value.email });
             if (user) {
-                return res.status(400).send("User already registered.");
+                return res.status(400).json({ error: "User already registered." });
             }
 
             const hash = await bcrypt.hash(value.password, 10);
@@ -82,7 +82,7 @@ module.exports = {
         }
         catch (err) {
             console.log(err.message);
-            res.status(400).send('error sign up new user');
+            res.status(400).json({ error: 'error sign up new user' });
         }
     },
 }

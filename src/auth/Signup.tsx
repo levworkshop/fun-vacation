@@ -1,6 +1,7 @@
 import Joi from "joi";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 import Title from "../components/Title";
 import { postRequest } from "../services/apiService";
 
@@ -51,6 +52,20 @@ function Signup() {
 
         res.then(response => response.json())
             .then(json => {
+                if (json.error) {
+                    toast.error(json.error, {
+                        position: "top-center",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "dark",
+                    });
+                    return;
+                }
+
                 navigate('/login');
             })
     }

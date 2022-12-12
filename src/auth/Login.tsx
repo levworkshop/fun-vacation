@@ -50,6 +50,7 @@ function Login() {
             .then(json => {
                 setToken(json.token);
                 localStorage.setItem('admin', json.isAdmin)
+                // localStorage.setItem('user', json.name)
                 navigate('/vacations');
             })
     }
