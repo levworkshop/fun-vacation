@@ -1,4 +1,5 @@
 import { NavLink } from "react-router-dom";
+import Logout from "../auth/Logout";
 
 function Header() {
     return (
@@ -57,13 +58,7 @@ function Header() {
                                 </NavLink>
                             </li>
                             <li className="nav-item">
-                                <NavLink
-                                    className="nav-link"
-                                    aria-current="page"
-                                    to="/order"
-                                >
-                                    Logout
-                                </NavLink>
+                                <Logout />
                             </li>
                         </ul>
                     </div>
