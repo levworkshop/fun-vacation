@@ -2,6 +2,7 @@ import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
 import Login from './auth/Login';
+import RouteGuard from './auth/RouteGuard';
 import Signup from './auth/Signup';
 import Header from './components/Header';
 import Edit from './pages/Edit';
@@ -26,11 +27,19 @@ function App() {
                 />
                 <Route
                     path='/vacations'
-                    element={<Vacations />}
+                    element={
+                        <RouteGuard>
+                            <Vacations />
+                        </RouteGuard>
+                    }
                 />
                 <Route
                     path='/edit/:id'
-                    element={<Edit />}
+                    element={
+                        <RouteGuard>
+                            <Edit />
+                        </RouteGuard>
+                    }
                 />
                 <Route
                     path='/signup'
