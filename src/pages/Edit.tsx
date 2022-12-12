@@ -1,7 +1,7 @@
 import Joi from "joi";
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { getRequest } from "../services/apiService";
+import { getRequest, patchRequest } from "../services/apiService";
 import { formatDate } from "../utils/utils";
 import { IVacation } from "./Vacations/Vacations";
 
@@ -53,14 +53,13 @@ function Edit() {
     }
 
     function editVacation(vacation: IVacation) {
-        fetch(`http://localhost:3000/vacations/${id}`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(vacation)
-        })
-            .then(res => res.json())
+        const res = patchRequest(
+            `vacations/${id}`,
+            vacation
+        );
+        if (!res) return;
+
+        res.then(res => res.json())
             .then(json => {
                 if (json.error) {
                     setError(json.error);
