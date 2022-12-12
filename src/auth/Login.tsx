@@ -41,7 +41,8 @@ function Login() {
     function login(data: ILoginData) {
         const res = postRequest(
             'users/login',
-            data
+            data,
+            false
         );
         if (!res) return;
 
