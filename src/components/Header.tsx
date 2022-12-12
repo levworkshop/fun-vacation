@@ -27,6 +27,15 @@ function Header() {
                                     Vacations
                                 </NavLink>
                             </li>
+                            <li className="nav-item">
+                                <NavLink
+                                    className="nav-link"
+                                    aria-current="page"
+                                    to="/admin"
+                                >
+                                    Admin Only
+                                </NavLink>
+                            </li>
                         </ul>
 
                         <ul className="navbar-nav d-flex">
