@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { createContext, useEffect, useState } from "react";
+import Panel from "../../components/Panel";
 import Title from "../../components/Title";
 import { deleteRequest, getRequest } from "../../services/apiService";
-import { formatDate, formatPrice } from "../../utils/utils";
 import AddForm from "./AddForm";
+import TableRow from "./TableRows";
 
 export interface IVacation {
     _id: number;
@@ -11,6 +11,8 @@ export interface IVacation {
     location: string;
     price: number;
 }
+
+export const VacationContext = createContext<Array<IVacation>>([]);
 
 function Vacations() {
     const [vacations, setVacations] = useState<Array<IVacation>>([]);
@@ -50,7 +52,7 @@ function Vacations() {
     }
 
     return (
-        <>
+        <VacationContext.Provider value={vacations}>
             <Title
                 main="Vacations"
                 sub="manage vacation packages"
@@ -65,47 +67,29 @@ function Vacations() {
                 </div>
             }
 
-            <AddForm addVacation={addVacation} />
+            <Panel>
 
-            <table className="table table-hover">
-                <thead>
-                    <tr>
-                        <th className="w-25">Date</th>
-                        <th className="w-25">Location</th>
-                        <th className="w-50">Price</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {
-                        vacations.map(vacation =>
-                            <tr key={vacation._id}>
-                                <td>{formatDate(vacation.date)}</td>
-                                <td>{vacation.location}</td>
-                                <td>{formatPrice(vacation.price)}</td>
-                                <td>
-                                    <div className="d-flex">
-                                        <Link
-                                            to={`/edit/${vacation._id}`}
-                                            className="btn btn-default"
-                                        >
-                                            <i className="bi-pen" />
-                                        </Link>
+                <AddForm addVacation={addVacation} />
 
-                                        <button
-                                            onClick={() => delVacation(vacation)}
-                                            className="btn btn-default ms-2"
-                                        >
-                                            <i className="bi-trash" />
-                                        </button>
-                                    </div>
-                                </td>
-                            </tr>
-                        )
-                    }
-                </tbody>
-            </table>
-        </>
+                <table className="table table-hover">
+                    <thead>
+                        <tr>
+                            <th className="w-25">Date</th>
+                            <th className="w-25">Location</th>
+                            <th className="w-50">Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            <TableRow
+                                delVacation={delVacation}
+                            />
+                        }
+                    </tbody>
+                </table>
+            </Panel>
+        </VacationContext.Provider>
     );
 }
 
