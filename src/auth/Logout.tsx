@@ -1,18 +1,11 @@
-import { useNavigate } from "react-router-dom";
-// import { removeToken } from "./tokenMgmt";
+interface Props {
+    handler: Function;
+}
 
-function Logout() {
-    const navigate = useNavigate();
-
-    function handleLogout() {
-        // removeToken();
-        localStorage.clear();
-        navigate('/login');
-    }
-
+function Logout({ handler }: Props) {
     return (
         <button
-            onClick={handleLogout}
+            onClick={(e) => handler()}
             className="btn btn-link nav-link"
         >
             Log Out
