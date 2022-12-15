@@ -2,12 +2,7 @@ import { NavLink } from "react-router-dom";
 import Logout from "../auth/Logout";
 import User from "./User";
 
-interface Props {
-    userName: string;
-    handleLogout: Function;
-}
-
-function Header({ userName, handleLogout }: Props) {
+function Header() {
     return (
         <header>
             <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -73,14 +68,14 @@ function Header({ userName, handleLogout }: Props) {
                                 </NavLink>
                             </li>
                             <li className="nav-item">
-                                <Logout handler={handleLogout} />
+                                <Logout />
                             </li>
                         </ul>
                     </div>
                 </div>
             </nav>
 
-            <User userName={userName} />
+            <User />
         </header>
     );
 }

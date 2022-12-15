@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { createContext, useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
@@ -19,8 +19,18 @@ interface ILoginData {
     password: string;
 }
 
+interface Context {
+    userName: string;
+    handleLogout: Function;
+    login: Function;
+    isAdmin: boolean;
+}
+
+export const AppContext = createContext<Context | null>(null);
+
 function App() {
     const [userName, setUserName] = useState('');
+    const [isAdmin, setIsAdmin] = useState(false);
     const navigate = useNavigate();
 
     function handleLogout() {
@@ -41,18 +51,20 @@ function App() {
             .then(json => {
                 setToken(json.token);
                 localStorage.setItem('admin', json.isAdmin);
-                // localStorage.setItem('user', json.name);
+                setIsAdmin(json.isAdmin);
                 setUserName(json.name);
                 navigate('/vacations');
             })
     }
 
     return (
-        <>
-            <Header
-                userName={userName}
-                handleLogout={handleLogout}
-            />
+        <AppContext.Provider value={{
+            userName,
+            handleLogout,
+            login,
+            isAdmin
+        }}>
+            <Header />
             <ToastContainer />
 
             <Routes>
@@ -93,7 +105,7 @@ function App() {
                     element={<AdminOnly />}
                 />
             </Routes>
-        </>
+        </AppContext.Provider>
     );
 }
 
