@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { removeToken } from "./tokenMgmt";
+// import { removeToken } from "./tokenMgmt";
 
 function Logout() {
     const navigate = useNavigate();
@@ -11,12 +11,12 @@ function Logout() {
     }
 
     return (
-        <a
+        <button
             onClick={handleLogout}
-            className="nav-link"
+            className="btn btn-link nav-link"
         >
             Log Out
-        </a>
+        </button>
     );
 }
 
