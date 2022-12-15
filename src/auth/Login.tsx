@@ -1,16 +1,12 @@
 import Joi from "joi";
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import Title from "../components/Title";
-import { postRequest } from "../services/apiService";
-import { setToken } from "./tokenMgmt";
 
 interface Props {
     handler: Function;
 }
 
 function Login({ handler }: Props) {
-    const navigate = useNavigate();
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 

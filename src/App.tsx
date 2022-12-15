@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Route, Routes, useNavigate } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import './App.css';
@@ -21,14 +21,7 @@ interface ILoginData {
 
 function App() {
     const [userName, setUserName] = useState('');
-
     const navigate = useNavigate();
-
-    // useEffect(() => {
-    //     const name = localStorage.getItem('user');
-    //     if (!name) return;
-    //     setUserName(name);
-    // }, []);
 
     function handleLogout() {
         localStorage.clear();
