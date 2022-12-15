@@ -12,7 +12,12 @@ export interface IVacation {
     price: number;
 }
 
-export const VacationContext = createContext<Array<IVacation>>([]);
+interface Context {
+    vacations?: Array<IVacation>;
+    delVacation?: Function;
+}
+
+export const VacationContext = createContext<Context>({});
 
 function Vacations() {
     const [vacations, setVacations] = useState<Array<IVacation>>([]);
@@ -52,7 +57,7 @@ function Vacations() {
     }
 
     return (
-        <VacationContext.Provider value={vacations}>
+        <VacationContext.Provider value={{ vacations, delVacation }}>
             <Title
                 main="Vacations"
                 sub="manage vacation packages"
@@ -82,9 +87,7 @@ function Vacations() {
                     </thead>
                     <tbody>
                         {
-                            <TableRow
-                                delVacation={delVacation}
-                            />
+                            <TableRow />
                         }
                     </tbody>
                 </table>
