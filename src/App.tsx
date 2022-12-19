@@ -36,6 +36,7 @@ function App() {
     function handleLogout() {
         localStorage.clear();
         setUserName('');
+        setIsAdmin(false);
         navigate('/login');
     }
 
@@ -50,7 +51,6 @@ function App() {
         res.then(response => response.json())
             .then(json => {
                 setToken(json.token);
-                localStorage.setItem('admin', json.isAdmin);
                 setIsAdmin(json.isAdmin);
                 setUserName(json.name);
                 navigate('/vacations');
