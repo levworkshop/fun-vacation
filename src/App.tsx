@@ -29,8 +29,8 @@ interface Context {
 export const AppContext = createContext<Context | null>(null);
 
 function App() {
-    const [userName, setUserName] = useState('');
-    const [isAdmin, setIsAdmin] = useState(false);
+    const [userName, setUserName] = useState<string>('');
+    const [isAdmin, setIsAdmin] = useState<boolean>(false);
     const navigate = useNavigate();
 
     function handleLogout() {
