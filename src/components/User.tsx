@@ -11,7 +11,7 @@ function User() {
                 (context.userName.length === 0) ?
                     null :
                     (
-                        <div>
+                        <div className="bg-light p-2">
                             Hello {context.userName}
                         </div>
                     )
