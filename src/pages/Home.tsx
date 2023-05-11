@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import Title from "../components/Title";
 
 interface VacationPackage {
@@ -6,6 +6,11 @@ interface VacationPackage {
     date: string;
     location: string;
     price: number;
+}
+
+enum SortDirection {
+    asc = 'asc',  // A-Z
+    desc = 'desc' //Z-A
 }
 
 const data: Array<VacationPackage> = [
@@ -25,6 +30,12 @@ const data: Array<VacationPackage> = [
 
 function Home() {
     const [vacations, setVacations] = useState(data);
+    const [sort, setSort] = useState(SortDirection.asc);
+
+    function handleSort(e: ChangeEvent<HTMLSelectElement>) {
+        const value = e.target.value as SortDirection;
+        setSort(value);
+    }
 
     return (
         <>
@@ -41,9 +52,11 @@ function Home() {
                 <div>
                     <select
                         className="form-select"
+                        value={sort}
+                        onChange={handleSort}
                     >
-                        <option>Location A-Z</option>
-                        <option>Location Z-A</option>
+                        <option value={SortDirection.asc}>Location A-Z</option>
+                        <option value={SortDirection.desc}>Location Z-A</option>
                     </select>
                 </div>
             </div>
