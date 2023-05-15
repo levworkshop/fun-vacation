@@ -1,8 +1,8 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Title from "../components/Title";
 
 interface VacationPackage {
-    id?: string;
+    _id?: string;
     date: string;
     location: string;
     price: number;
@@ -13,38 +13,46 @@ enum SortDirection {
     desc = 'desc' //Z-A
 }
 
-const data: Array<VacationPackage> = [
-    {
-        id: 'a1',
-        date: '01/01/23',
-        location: 'New York',
-        price: 1000
-    },
-    {
-        id: 'a3',
-        date: '01/01/23',
-        location: 'Ibiza',
-        price: 500
-    }
-    ,
-    {
-        id: 'a2',
-        date: '01/01/23',
-        location: 'London',
-        price: 500
-    },
-];
+// const data: Array<VacationPackage> = [
+//     {
+//         id: 'a1',
+//         date: '01/01/23',
+//         location: 'New York',
+//         price: 1000
+//     },
+//     {
+//         id: 'a3',
+//         date: '01/01/23',
+//         location: 'Ibiza',
+//         price: 500
+//     }
+//     ,
+//     {
+//         id: 'a2',
+//         date: '01/01/23',
+//         location: 'London',
+//         price: 500
+//     },
+// ];
 
 function Home() {
-    const [vacations, setVacations] = useState(data);
+    const [vacations, setVacations] = useState<Array<VacationPackage>>([]);
     const [sort, setSort] = useState(SortDirection.asc);
     const [search, setSearch] = useState('');
+
+    useEffect(() => {
+        fetch('http://localhost:3000/vacations')
+            .then(res => res.json())
+            .then(json => {
+                setVacations(json);
+            });
+    }, []);
 
     function handleSort(e: ChangeEvent<HTMLSelectElement>) {
         const direction = e.target.value as SortDirection;
         setSort(direction);
 
-        let result = [...data];
+        let result = [...vacations];
         if (direction === SortDirection.desc) {
             result.sort((a, b) =>
                 a.location > b.location ? -1 : a.location < b.location ? 1 : 0
@@ -64,11 +72,15 @@ function Home() {
         setSearch(value);
 
         const term = value.toLowerCase();
-        const result = data.filter(vacation =>
+        const result = [...vacations].filter(vacation =>
             vacation.location.toLowerCase().includes(term)
         )
 
         setVacations(result);
+    }
+
+    function formatDate(value: string) {
+        return new Date(value).toLocaleDateString()
     }
 
     return (
@@ -104,8 +116,8 @@ function Home() {
                 <tbody>
                     {
                         vacations.map(vacation =>
-                            <tr key={vacation.id}>
-                                <td>{vacation.date}</td>
+                            <tr key={vacation._id}>
+                                <td>{formatDate(vacation.date)}</td>
                                 <td>{vacation.location}</td>
                                 <td>{vacation.price}</td>
                             </tr>
