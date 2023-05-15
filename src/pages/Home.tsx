@@ -1,7 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Title from "../components/Title";
 
-interface VacationPackage {
+export interface VacationPackage {
     _id?: string;
     date: string;
     location: string;
@@ -63,7 +63,10 @@ function Home() {
 
     return (
         <>
-            <Title />
+            <Title
+                mainText="Our Offers"
+                subText="our packages for this months"
+            />
 
             <div className="d-flex px-4 w-50 my-5 bg-light">
                 <input
