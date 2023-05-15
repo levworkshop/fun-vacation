@@ -38,6 +38,7 @@ const data: Array<VacationPackage> = [
 function Home() {
     const [vacations, setVacations] = useState(data);
     const [sort, setSort] = useState(SortDirection.asc);
+    const [search, setSearch] = useState('');
 
     function handleSort(e: ChangeEvent<HTMLSelectElement>) {
         const direction = e.target.value as SortDirection;
@@ -58,6 +59,18 @@ function Home() {
         setVacations(result);
     }
 
+    function handleSearch(e: ChangeEvent<HTMLInputElement>) {
+        const value = e.target.value;
+        setSearch(value);
+
+        const term = value.toLowerCase();
+        const result = data.filter(vacation =>
+            vacation.location.toLowerCase().includes(term)
+        )
+
+        setVacations(result);
+    }
+
     return (
         <>
             <Title />
@@ -67,6 +80,8 @@ function Home() {
                     type="text"
                     placeholder="Search"
                     className="form-control me-4"
+                    value={search}
+                    onChange={handleSearch}
                 />
                 <select
                     className="form-select"
