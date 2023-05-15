@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AddForm from "../components/AddForm";
 import Title from "../components/Title";
 import { VacationPackage } from "./Home";
-import { getVacations } from "../services/ApiService";
+import { addVacations, getVacations } from "../services/ApiService";
 
 function Vacations() {
     const [vacations, setVacations] = useState<Array<VacationPackage>>([]);
@@ -14,6 +14,16 @@ function Vacations() {
             })
     }, []);
 
+    function onAdd(vacation: VacationPackage) {
+        addVacations(vacation)
+            .then(json => {
+                setVacations([
+                    ...vacations,
+                    json
+                ])
+            })
+    }
+
     return (
         <>
             <Title
@@ -21,7 +31,7 @@ function Vacations() {
                 subText="manage vacation packages"
             />
 
-            <AddForm />
+            <AddForm onAdd={onAdd} />
 
             <table className='table table-hover'>
                 <thead>
