@@ -1,5 +1,6 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Title from "../components/Title";
+import { getVacations } from "../services/ApiService";
 
 export interface VacationPackage {
     _id?: string;
@@ -19,8 +20,7 @@ function Home() {
     const [search, setSearch] = useState('');
 
     useEffect(() => {
-        fetch('http://localhost:3000/vacations')
-            .then(res => res.json())
+        getVacations()
             .then(json => {
                 setVacations(json);
             });

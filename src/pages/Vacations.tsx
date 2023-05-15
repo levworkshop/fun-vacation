@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import AddForm from "../components/AddForm";
 import Title from "../components/Title";
 import { VacationPackage } from "./Home";
+import { getVacations } from "../services/ApiService";
 
 function Vacations() {
     const [vacations, setVacations] = useState<Array<VacationPackage>>([]);
 
     useEffect(() => {
-        fetch('http://localhost:3000/vacations')
-            .then(res => res.json())
+        getVacations()
             .then(json => {
                 setVacations(json);
             })
