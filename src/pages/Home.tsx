@@ -13,28 +13,6 @@ enum SortDirection {
     desc = 'desc' //Z-A
 }
 
-// const data: Array<VacationPackage> = [
-//     {
-//         id: 'a1',
-//         date: '01/01/23',
-//         location: 'New York',
-//         price: 1000
-//     },
-//     {
-//         id: 'a3',
-//         date: '01/01/23',
-//         location: 'Ibiza',
-//         price: 500
-//     }
-//     ,
-//     {
-//         id: 'a2',
-//         date: '01/01/23',
-//         location: 'London',
-//         price: 500
-//     },
-// ];
-
 function Home() {
     const [vacations, setVacations] = useState<Array<VacationPackage>>([]);
     const [sort, setSort] = useState(SortDirection.asc);
@@ -94,6 +72,7 @@ function Home() {
                     className="form-control me-4"
                     value={search}
                     onChange={handleSearch}
+                    disabled={vacations.length === 0}
                 />
                 <select
                     className="form-select"
