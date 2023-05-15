@@ -21,11 +21,18 @@ const data: Array<VacationPackage> = [
         price: 1000
     },
     {
+        id: 'a3',
+        date: '01/01/23',
+        location: 'Ibiza',
+        price: 500
+    }
+    ,
+    {
         id: 'a2',
         date: '01/01/23',
         location: 'London',
         price: 500
-    }
+    },
 ];
 
 function Home() {
@@ -33,8 +40,22 @@ function Home() {
     const [sort, setSort] = useState(SortDirection.asc);
 
     function handleSort(e: ChangeEvent<HTMLSelectElement>) {
-        const value = e.target.value as SortDirection;
-        setSort(value);
+        const direction = e.target.value as SortDirection;
+        setSort(direction);
+
+        let result = [...data];
+        if (direction === SortDirection.desc) {
+            result.sort((a, b) =>
+                a.location > b.location ? -1 : a.location < b.location ? 1 : 0
+            )
+        }
+        else {
+            result.sort((a, b) =>
+                a.location < b.location ? -1 : a.location > b.location ? 1 : 0
+            )
+        }
+
+        setVacations(result);
     }
 
     return (
