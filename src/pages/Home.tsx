@@ -41,24 +41,20 @@ function Home() {
         <>
             <Title />
 
-            <div className="d-flex">
-                <div>
-                    <input
-                        type="text"
-                        placeholder="Search"
-                        className="form-control me-4"
-                    />
-                </div>
-                <div>
-                    <select
-                        className="form-select"
-                        value={sort}
-                        onChange={handleSort}
-                    >
-                        <option value={SortDirection.asc}>Location A-Z</option>
-                        <option value={SortDirection.desc}>Location Z-A</option>
-                    </select>
-                </div>
+            <div className="d-flex px-4 w-50 my-5 bg-light">
+                <input
+                    type="text"
+                    placeholder="Search"
+                    className="form-control me-4"
+                />
+                <select
+                    className="form-select"
+                    value={sort}
+                    onChange={handleSort}
+                >
+                    <option value={SortDirection.asc}>Location A-Z</option>
+                    <option value={SortDirection.desc}>Location Z-A</option>
+                </select>
             </div>
 
             <table className="table table-hover">
