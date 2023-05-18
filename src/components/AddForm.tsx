@@ -37,7 +37,11 @@ function AddForm({ onAdd }: Props) {
             date,
             location,
             price
-        })
+        });
+
+        setDate('');
+        setLocation('');
+        setPrice(1);
     }
 
     return (
