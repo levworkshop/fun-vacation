@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import Title from "../components/Title";
 import { getVacations } from "../services/ApiService";
 import NoDataMessage from "../components/NoDataMessage";
+import { formatDate, formatPrice } from "../services/Formatter";
 
 export interface VacationPackage {
     _id?: string;
@@ -60,10 +61,6 @@ function Home() {
         setVacations(result);
     }
 
-    function formatDate(value: string) {
-        return new Date(value).toLocaleDateString()
-    }
-
     function isDataEmpty(): boolean {
         return origData.length === 0;
     }
@@ -109,7 +106,7 @@ function Home() {
                             <tr key={vacation._id}>
                                 <td>{formatDate(vacation.date)}</td>
                                 <td>{vacation.location}</td>
-                                <td>{vacation.price}</td>
+                                <td>{formatPrice(vacation.price)}</td>
                             </tr>
                         )
                     }
