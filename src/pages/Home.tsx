@@ -1,6 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import Title from "../components/Title";
 import { getVacations } from "../services/ApiService";
+import NoDataMessage from "../components/NoDataMessage";
 
 export interface VacationPackage {
     _id?: string;
@@ -18,11 +19,13 @@ function Home() {
     const [vacations, setVacations] = useState<Array<VacationPackage>>([]);
     const [sort, setSort] = useState(SortDirection.asc);
     const [search, setSearch] = useState('');
+    const [origData, setOrigData] = useState<Array<VacationPackage>>([]);
 
     useEffect(() => {
         getVacations()
             .then(json => {
                 setVacations(json);
+                setOrigData(json);
             });
     }, []);
 
@@ -50,7 +53,7 @@ function Home() {
         setSearch(value);
 
         const term = value.toLowerCase();
-        const result = [...vacations].filter(vacation =>
+        const result = [...origData].filter(vacation =>
             vacation.location.toLowerCase().includes(term)
         )
 
@@ -59,6 +62,10 @@ function Home() {
 
     function formatDate(value: string) {
         return new Date(value).toLocaleDateString()
+    }
+
+    function isDataEmpty(): boolean {
+        return origData.length === 0;
     }
 
     return (
@@ -75,12 +82,13 @@ function Home() {
                     className="form-control me-4"
                     value={search}
                     onChange={handleSearch}
-                    disabled={vacations.length === 0}
+                    disabled={isDataEmpty()}
                 />
                 <select
                     className="form-select"
                     value={sort}
                     onChange={handleSort}
+                    disabled={isDataEmpty()}
                 >
                     <option value={SortDirection.asc}>Location A-Z</option>
                     <option value={SortDirection.desc}>Location Z-A</option>
@@ -107,6 +115,10 @@ function Home() {
                     }
                 </tbody>
             </table>
+
+            {isDataEmpty() &&
+                <NoDataMessage />
+            }
         </>
     );
 }
