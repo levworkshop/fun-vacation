@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import AddForm from "../components/AddForm";
 import Title from "../components/Title";
 import { VacationPackage } from "./Home";
-import { addVacations, getVacations } from "../services/ApiService";
+import { addVacations, deleteVacation, getVacations } from "../services/ApiService";
 import NoDataMessage from "../components/NoDataMessage";
 import { formatDate, formatPrice } from "../services/Formatter";
 
@@ -24,6 +24,25 @@ function Vacations() {
                     json
                 ])
             })
+    }
+
+    async function onDelete(_id: string) {
+        // deleteVacations(_id)
+        //     .then(json => {
+        //         getVacations()
+        //             .then(json => {
+        //                 setVacations(json)
+        //             })
+        //     })
+
+        const res = await deleteVacation(_id);
+        // const updated = await getVacations();
+
+        const updated = [...vacations].filter(
+            vacation => vacation._id !== _id
+        )
+
+        setVacations(updated);
     }
 
     return (
@@ -54,7 +73,10 @@ function Vacations() {
                                 <button className="btn btn-default">
                                     <i className="bi bi-pen" />
                                 </button>
-                                <button className="btn btn-default ms-2">
+                                <button
+                                    className="btn btn-default ms-2"
+                                    onClick={() => onDelete(vacation._id as string)}
+                                >
                                     <i className="bi bi-trash" />
                                 </button>
                             </td>
