@@ -5,6 +5,7 @@ import { VacationPackage } from "./Home";
 import { addVacations, deleteVacation, getVacations } from "../services/ApiService";
 import NoDataMessage from "../components/NoDataMessage";
 import { formatDate, formatPrice } from "../services/Formatter";
+import { toast } from "react-toastify";
 
 function Vacations() {
     const [vacations, setVacations] = useState<Array<VacationPackage>>([]);
@@ -23,6 +24,8 @@ function Vacations() {
                     ...vacations,
                     json
                 ])
+
+                toast.success(`Vacation to ${json.location} has been added successfully`);
             })
     }
 
