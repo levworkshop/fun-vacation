@@ -97,16 +97,17 @@ function Edit() {
                     />
                 </div>
 
-                <div className="mb-3">
-                    <label
-                        className="form-label"
-                        htmlFor="price"
-                    >
-                        Price
-                    </label>
+                <label
+                    className="form-label"
+                    htmlFor="price"
+                >
+                    Price
+                </label>
+                <div className="input-group mb-3">
+                    <span className="input-group-text">$</span>
                     <input
                         type="number"
-                        className="form-control me-3"
+                        className="form-control"
                         value={price}
                         onChange={(e) => setPrice(+e.target.value)}
                         id="price"
