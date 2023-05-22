@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { editVacation, getVacationById } from "../../services/ApiService";
+import { toast } from "react-toastify";
 
 function Edit() {
+    const navigate = useNavigate();
     const { id } = useParams();
     const [date, setDate] = useState('');
     const [location, setLocation] = useState('');
     const [price, setPrice] = useState(1);
-    const [error, setError] = useState('');
+    // const [error, setError] = useState('');
 
     useEffect(() => {
         if (!id) return;
@@ -15,7 +17,10 @@ function Edit() {
         getVacationById(id)
             .then(json => {
                 const date = new Date(json.date);
-                setDate(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`);
+                setDate(date.toLocaleDateString('en-CA'));
+                // YYYY-MM-DD
+                console.log(date.toLocaleDateString('en-CA'));
+
                 setLocation(json.location);
                 setPrice(json.price);
             })
@@ -23,19 +28,19 @@ function Edit() {
 
     function validate(): boolean {
         if (!date) {
-            setError('date is required.')
+            toast.error('date is required.')
             return false
         }
         if (!location && location.length < 3) {
-            setError('Location is required.')
+            toast.error('Location is required.')
             return false
         }
 
         if (price <= 0) {
-            setError('No free vacations.')
+            toast.error('No free vacations.')
             return false
         }
-        setError('')
+        // setError('')
         return true
     }
 
@@ -53,6 +58,7 @@ function Edit() {
         })
             .then(json => {
                 // return to the vacations page...
+                navigate('/vacations');
             })
     }
 
@@ -108,7 +114,10 @@ function Edit() {
                 </div>
 
                 <div className="mb-3">
-                    <button className="btn btn-info me-3">
+                    <button
+                        onClick={handleClick}
+                        className="btn btn-info me-3"
+                    >
                         Update
                     </button>
                     <Link
