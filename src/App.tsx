@@ -6,6 +6,7 @@ import Order from './pages/Order';
 import Vacations from './pages/vacations/Vacations';
 import { ToastContainer } from 'react-toastify';
 import Edit from './pages/vacations/Edit';
+import SignUp from './auth/SignUp';
 
 function App() {
     return (
@@ -21,6 +22,7 @@ function App() {
                 <Route path="order" element={<Order />} />
                 <Route path="vacations" element={<Vacations />} />
                 <Route path="edit/:id" element={<Edit />} />
+                <Route path="signup" element={<SignUp />} />
             </Routes>
         </>
     );

@@ -30,7 +30,7 @@ function Header() {
 
                 <ul className="navbar-nav d-flex">
                     <li className="nav-item">
-                        <NavLink to="/" className="nav-link">
+                        <NavLink to="/signup" className="nav-link">
                             Sign Up
                         </NavLink>
                     </li>
