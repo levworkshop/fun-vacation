@@ -3,6 +3,7 @@ import FormLayout from "../components/FormLayout";
 import Title from "../components/Title";
 import { toast } from "react-toastify";
 import { signup } from "../services/ApiService";
+import { useNavigate } from "react-router-dom";
 
 export interface User {
     _id?: string;
@@ -15,6 +16,7 @@ function SignUp() {
     const [name, setName] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     function validate(): boolean {
         if (!name || name.length < 2) {
@@ -45,8 +47,7 @@ function SignUp() {
             password
         })
             .then((user) => {
-                console.log(user);
-
+                navigate('/login')
             })
     }
 
