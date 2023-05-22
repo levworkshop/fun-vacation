@@ -4,6 +4,7 @@ import Title from "../components/Title";
 import { toast } from "react-toastify";
 import { login, signup } from "../services/ApiService";
 import { useNavigate } from "react-router-dom";
+import { setToken } from "./TokenManager";
 
 function Login() {
     const [email, setEmail] = useState('');
@@ -34,6 +35,7 @@ function Login() {
             password
         })
             .then((user) => {
+                setToken(user.token)
                 navigate('/vacations')
             })
     }
