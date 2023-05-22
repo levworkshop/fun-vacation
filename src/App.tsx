@@ -9,6 +9,8 @@ import Edit from './pages/vacations/Edit';
 import SignUp from './auth/SignUp';
 import Login from './auth/Login';
 import RouteGuard from './auth/RouteGuard';
+import UserManager from './pages/UserManger';
+import AdminGuard from './auth/AdminGuard';
 
 function App() {
     return (
@@ -36,6 +38,14 @@ function App() {
                         <RouteGuard>
                             <Edit />
                         </RouteGuard>
+                    }
+                />
+                <Route
+                    path="users"
+                    element={
+                        <AdminGuard>
+                            <UserManager />
+                        </AdminGuard>
                     }
                 />
                 <Route path="signup" element={<SignUp />} />
