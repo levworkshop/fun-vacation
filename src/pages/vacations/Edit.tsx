@@ -57,9 +57,8 @@ function Edit() {
     }
 
     return (
-        <>
-            <div className="m-4">
-
+        <div className="m-4 d-flex justify-content-center">
+            <div className="col-sm-12 col-md-6">
                 <div className="mb-3">
                     <label
                         className="form-label"
@@ -107,20 +106,20 @@ function Edit() {
                         id="price"
                     />
                 </div>
-            </div>
-            <div className="mb-3">
-                <button className="btn btn-info me-3">
-                    Update
-                </button>
-                <Link
-                    to="/vacations"
-                    className="btn btn-secondary"
-                >
-                    Cancel
-                </Link>
-            </div>
 
-        </>
+                <div className="mb-3">
+                    <button className="btn btn-info me-3">
+                        Update
+                    </button>
+                    <Link
+                        to="/vacations"
+                        className="btn btn-secondary"
+                    >
+                        Cancel
+                    </Link>
+                </div>
+            </div>
+        </div>
     );
 }
 

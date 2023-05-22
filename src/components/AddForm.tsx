@@ -54,7 +54,7 @@ function AddForm({ onAdd }: Props) {
                 onChange={(e) => setDate(e.target.value)}
             />
             <input
-                className="form-control me-3"
+                className="form-control"
                 type="text"
                 placeholder="Location"
                 value={location}
