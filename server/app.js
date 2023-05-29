@@ -7,6 +7,7 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const vacationsRouter = require('./routes/vacations');
+const ordersRouter = require('./routes/orders');
 
 const headers = require('./middleware/headers');
 const auth = require('./middleware/auth');
@@ -23,7 +24,7 @@ app.use(headers);
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/vacations', vacationsRouter);
-// app.use('/vacations', vacationsRouter);
+app.use('/orders', ordersRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
