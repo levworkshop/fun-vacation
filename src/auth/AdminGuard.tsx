@@ -1,14 +1,17 @@
-import { ReactNode } from "react";
+import { ReactNode, useContext } from "react";
 import { Navigate } from "react-router-dom";
+import { AppContext } from "../App";
 
 interface Props {
     children: ReactNode
 }
 
 function AdminGuard({ children }: Props) {
+    const context = useContext(AppContext);
+
     function isNotAdmin(): boolean {
-        const admin = localStorage.getItem('admin');
-        return !admin || admin === 'false'
+        // const admin = localStorage.getItem('admin');
+        return !context?.admin || false;
     }
 
     return isNotAdmin() ? (

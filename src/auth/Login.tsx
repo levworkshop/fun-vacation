@@ -1,15 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import FormLayout from "../components/FormLayout";
 import Title from "../components/Title";
 import { toast } from "react-toastify";
 import { login, signup } from "../services/ApiService";
 import { useNavigate } from "react-router-dom";
 import { setToken } from "./TokenManager";
+import { AppContext } from "../App";
 
 function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const navigate = useNavigate();
+    const context = useContext(AppContext);
 
     function validate(): boolean {
         if (!email) { // also check that email is required with regex
@@ -36,7 +38,12 @@ function Login() {
         })
             .then((user) => {
                 setToken(user.token)
-                localStorage.setItem('admin', JSON.stringify(user.isAdmin))
+                // localStorage.setItem('admin', JSON.stringify(user.isAdmin))
+                if (context) {
+                    context.setAdmin(user.isAdmin || false);
+                    context.setUserName(user.name);
+                }
+
                 navigate('/vacations')
             })
     }

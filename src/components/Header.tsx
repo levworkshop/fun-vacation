@@ -1,8 +1,12 @@
 import { NavLink } from "react-router-dom";
 import Logout from "../auth/Logout";
 import { getToken, verifyToken } from "../auth/TokenManager";
+import { useContext } from "react";
+import { AppContext } from "../App";
 
 function Header() {
+    const context = useContext(AppContext);
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -29,11 +33,13 @@ function Header() {
                                 </NavLink>
                             </li>
                         }
-                        <li className="nav-item">
-                            <NavLink to="/users" className="nav-link">
-                                Users Manager
-                            </NavLink>
-                        </li>
+                        {context?.admin &&
+                            <li className="nav-item">
+                                <NavLink to="/users" className="nav-link">
+                                    Users Manager
+                                </NavLink>
+                            </li>
+                        }
                     </ul>
                 </div>
 

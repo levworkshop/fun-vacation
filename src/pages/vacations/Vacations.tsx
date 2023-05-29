@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import AddForm from "../../components/AddForm";
 import Title from "../../components/Title";
 import { VacationPackage } from "../Home";
@@ -7,9 +7,12 @@ import NoDataMessage from "../../components/NoDataMessage";
 import { formatDate, formatPrice } from "../../services/Formatter";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import TableRow from "./TableRow";
+import { AppContext } from "../../App";
 
 function Vacations() {
     const [vacations, setVacations] = useState<Array<VacationPackage>>([]);
+    const context = useContext(AppContext);
 
     useEffect(() => {
         getVacations()
@@ -53,6 +56,10 @@ function Vacations() {
 
     return (
         <>
+            {context?.userName &&
+                <div className="p-2">Welcome {context.userName}</div>
+            }
+
             <Title
                 mainText="Vacations"
                 subText="manage vacation packages"
@@ -71,25 +78,11 @@ function Vacations() {
                 </thead>
                 <tbody>
                     {vacations.map(vacation =>
-                        <tr key={vacation._id}>
-                            <td>{formatDate(vacation.date)}</td>
-                            <td>{vacation.location}</td>
-                            <td>{formatPrice(vacation.price)}</td>
-                            <td>
-                                <Link
-                                    to={`/edit/${vacation._id}`}
-                                    className="btn btn-default"
-                                >
-                                    <i className="bi bi-pen" />
-                                </Link>
-                                <button
-                                    className="btn btn-default ms-2"
-                                    onClick={() => onDelete(vacation._id as string)}
-                                >
-                                    <i className="bi bi-trash" />
-                                </button>
-                            </td>
-                        </tr>
+                        <TableRow
+                            key={vacation._id}
+                            vacation={vacation}
+                            onDelete={onDelete}
+                        />
                     )}
                 </tbody>
             </table>
