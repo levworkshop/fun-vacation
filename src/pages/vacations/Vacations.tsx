@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import AddForm from "../../components/AddForm";
 import Title from "../../components/Title";
 import { VacationPackage } from "../Home";
@@ -9,6 +9,14 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 import TableRow from "./TableRow";
 import { AppContext } from "../../App";
+
+interface VacationContextType {
+    vacations: Array<VacationPackage>
+    onDelete: Function
+    vacationId?: string
+}
+
+export const VacationContext = createContext<VacationContextType | null>(null);
 
 function Vacations() {
     const [vacations, setVacations] = useState<Array<VacationPackage>>([]);
@@ -64,28 +72,33 @@ function Vacations() {
                 mainText="Vacations"
                 subText="manage vacation packages"
             />
+            <VacationContext.Provider value={{
+                vacations,
+                onDelete
+            }}>
 
-            <AddForm onAdd={onAdd} />
+                <AddForm onAdd={onAdd} />
 
-            <table className='table table-hover'>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Location</th>
-                        <th>Price</th>
-                        <th></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {vacations.map(vacation =>
-                        <TableRow
-                            key={vacation._id}
-                            vacation={vacation}
-                            onDelete={onDelete}
-                        />
-                    )}
-                </tbody>
-            </table>
+                <table className='table table-hover'>
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Location</th>
+                            <th>Price</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {vacations.map(vacation =>
+                            <TableRow
+                                key={vacation._id}
+                                vacation={vacation}
+                                onDelete={onDelete}
+                            />
+                        )}
+                    </tbody>
+                </table>
+            </VacationContext.Provider>
 
             {vacations.length === 0 &&
                 <NoDataMessage />
