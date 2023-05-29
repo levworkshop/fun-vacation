@@ -11,6 +11,7 @@ import Login from './auth/Login';
 import RouteGuard from './auth/RouteGuard';
 import UserManager from './pages/UserManger';
 import AdminGuard from './auth/AdminGuard';
+import Checkout from './pages/Checkout';
 
 function App() {
     return (
@@ -48,6 +49,7 @@ function App() {
                         </AdminGuard>
                     }
                 />
+                <Route path="checkout" element={<Checkout />} />
                 <Route path="signup" element={<SignUp />} />
                 <Route path="login" element={<Login />} />
             </Routes>
