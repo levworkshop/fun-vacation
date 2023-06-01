@@ -13,6 +13,8 @@ import UserManager from './pages/UserManger';
 import AdminGuard from './auth/AdminGuard';
 import Checkout from './pages/Checkout';
 import { createContext, useState } from 'react';
+import FacebookButton from './components/FacebookButton';
+import SocialButton from './components/SocialButton';
 
 interface Context {
     admin: boolean
@@ -73,6 +75,33 @@ function App() {
                     <Route path="login" element={<Login />} />
                 </Routes>
             </AppContext.Provider>
+
+            <div
+                className="p-4 d-flex align-items-center justify-content-center"
+            >
+                <div className="col-6">
+                    <h4 className="rounded-pill bg-light p-4">
+                        Spread the News
+                    </h4>
+
+                    <FacebookButton
+                        icon={<i className="bi bi-facebook me-2" />}
+                    />
+
+                    <FacebookButton
+                        icon={<img src="https://cdn.pixabay.com/photo/2017/10/29/01/22/icon-facebook-2898664_640.png" width={16} alt="Share on Facebook"
+                        />}
+                    />
+
+                    <SocialButton
+                        text="Facebook"
+                        url="https://facebook..."
+                        icon={<i className="bi bi-facebook me-2" />}
+                    />
+
+                </div>
+
+            </div>
         </>
     );
 }
