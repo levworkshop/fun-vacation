@@ -4,16 +4,12 @@ import Title from "../../components/Title";
 import { VacationPackage } from "../Home";
 import { addVacations, deleteVacation, getVacations } from "../../services/ApiService";
 import NoDataMessage from "../../components/NoDataMessage";
-import { formatDate, formatPrice } from "../../services/Formatter";
 import { toast } from "react-toastify";
-import { Link } from "react-router-dom";
 import TableRow from "./TableRow";
 import { AppContext } from "../../App";
 
 interface VacationContextType {
-    vacations: Array<VacationPackage>
     onDelete: Function
-    vacationId?: string
 }
 
 export const VacationContext = createContext<VacationContextType | null>(null);
@@ -73,7 +69,6 @@ function Vacations() {
                 subText="manage vacation packages"
             />
             <VacationContext.Provider value={{
-                vacations,
                 onDelete
             }}>
 
@@ -93,7 +88,7 @@ function Vacations() {
                             <TableRow
                                 key={vacation._id}
                                 vacation={vacation}
-                                onDelete={onDelete}
+                            // onDelete={onDelete}
                             />
                         )}
                     </tbody>

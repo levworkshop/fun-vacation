@@ -5,10 +5,10 @@ import DeleteButton from "./DeleteButton";
 
 interface Props {
     vacation: VacationPackage,
-    onDelete: Function
+    // onDelete: Function
 }
 
-function TableRow({ vacation, onDelete }: Props) {
+function TableRow({ vacation }: Props) {
     return (
         <tr>
             <td>{formatDate(vacation.date)}</td>
@@ -23,7 +23,7 @@ function TableRow({ vacation, onDelete }: Props) {
                 </Link>
                 <DeleteButton
                     vacationId={vacation._id as string}
-                    onDelete={onDelete}
+                // onDelete={onDelete}
                 />
             </td>
         </tr>
